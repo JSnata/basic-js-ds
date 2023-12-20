@@ -1,3 +1,4 @@
+const { node } = require("webpack");
 const { NotImplementedError } = require("../extensions/index.js");
 
 const { Node } = require("../extensions/list-tree.js");
@@ -42,7 +43,6 @@ class BinarySearchTree {
   }
 
   has(data) {
-    console.log(this.rootItem);
     return searchItem(this.rootItem, data);
 
     function searchItem(item, value) {
@@ -61,10 +61,22 @@ class BinarySearchTree {
     }
   }
 
-  find(/* data */) {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+  find(data) {
+    return searchItem(this.rootItem, data);
+
+    function searchItem(item, value) {
+      if (item) {
+        if (item.data === value) {
+          return item;
+        }
+
+        return value < item.data
+          ? (searchItem(item.left, value))
+          : (searchItem(item.right, value));
+      }
+      return null;
   }
+}
 
   remove(/* data */) {
     throw new NotImplementedError("Not implemented");
