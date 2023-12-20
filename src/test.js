@@ -1,36 +1,42 @@
-const { NotImplementedError } = require('../extensions/index.js');
-
-const { ListNode } = require('../extensions/list-node.js');
-
-class Queue {
-
-    getUnderlyingList() {
-      const underlyingList = {};
-      underlyingList.value = this.last;
-      underlyingList.next = this.last.next;
-      return underlyingList;
+class ListNode {
+    constructor(x) {
+       this.value = x;
+        this.next = null;
+      }
     }
-  
-    enqueue(value) {
-      const newNode = new ListNode(value);
-      if (!this.first) {
-        this.first = newNode;
-        this.last = newNode;
-      } else {
-        this.last.next = newNode;
-        this.last = newNode;
+
+function convertArrayToList(arr) {
+    return arr.reverse().reduce((acc, cur) => {
+      if (acc) {
+        const node = new ListNode(cur);
+        node.next = acc;
+        return node;
       }
   
-      this.length++;
-    }
-  
-    dequeue() {
-      const count = this.first;
-      this.first = this.first.next;
-      this.length--;
-      return count.value;
-    }
-  }
+      return new ListNode(cur);
+    }, null);
+}
 
+const initial = convertArrayToList([3, 1, 2, 3, 4, 5]);
 
-  
+function removeKFromList(l, k) {
+    const getList = (node) => {
+      const item = {};
+      if(!node.next && node.value !== k) {
+        item.value = node.value;
+        item.next = null;
+      } else if(node.value !== k) {
+        item.value = node.value;
+        item.next = getList(node.next);
+      } else if (node.value === k) {
+        item.next = getList(node.next);
+      }
+      return item;
+    }
+
+     newList = getList(l);
+     return newList
+}
+
+removeKFromList(initial, 3);
+
