@@ -1,3 +1,4 @@
+const { node } = require("webpack");
 const { NotImplementedError } = require("../extensions/index.js");
 
 const { Node } = require("../extensions/list-tree.js");
@@ -77,19 +78,33 @@ class BinarySearchTree {
   }
 }
 
-  remove(/* data */) {
+  remove(/*data*/) {
     throw new NotImplementedError("Not implemented");
     // remove line with error and write your code here
   }
 
   min() {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+    if(this.rootItem){
+      let item = this.rootItem;
+
+      while (item.left) {
+        item = item.left;
+      }
+  
+      return item.data;
+    }
   }
 
   max() {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+    if(this.rootItem){
+      let item = this.rootItem;
+
+      while (item.right) {
+        item = item.right;
+      }
+  
+      return item.data;
+    }
   }
 }
 
